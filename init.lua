@@ -35,13 +35,14 @@ vim.pack.add({
 	"https://github.com/folke/which-key.nvim",
 	"https://github.com/nvim-mini/mini.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/tpope/vim-fugitive",
 })
 
 require("mini.icons").setup()
-require("which-key").setup({
+local wk = require("which-key")
+wk.setup({
 	preset = "helix",
 })
-local wk = require("which-key")
 wk.add({
   { "<leader>f", group = "[f]zf" , icon = "", mode = { "n", "v" }},
 })
