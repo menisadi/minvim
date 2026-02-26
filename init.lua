@@ -18,7 +18,7 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = "yes"
 vim.opt.inccommand = "split"
 vim.opt.cursorline = true
-vim.cmd[[colorscheme catppuccin]]
+vim.cmd([[colorscheme catppuccin]])
 
 -- Highlight when yanking text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -32,4 +32,22 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.pack.add({
 	"https://github.com/tpope/vim-sleuth",
 	"https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/folke/which-key.nvim",
+	"https://github.com/nvim-mini/mini.nvim",
+	"https://github.com/ibhagwan/fzf-lua",
 })
+
+require("mini.icons").setup()
+require("which-key").setup({
+	preset = "helix",
+})
+local wk = require("which-key")
+wk.add({
+  { "<leader>f", group = "[f]zf" , icon = "", mode = { "n", "v" }},
+})
+
+require("fzf-lua").setup({ fzf_colors = true })
+local fzf = require("fzf-lua")
+vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "Fzf files" })
+vim.keymap.set("n", "<leader>fg", fzf.live_grep, { desc = "Fzf live grep" })
+vim.keymap.set("n", "<leader>fb", fzf.builtin, { desc = "Fzf Builtin Picker" })
