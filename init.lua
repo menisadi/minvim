@@ -36,6 +36,7 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/tpope/vim-fugitive",
+	"https://github.com/stevearc/oil.nvim",
 })
 
 require("mini.icons").setup()
@@ -52,3 +53,5 @@ local fzf = require("fzf-lua")
 vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "Fzf files" })
 vim.keymap.set("n", "<leader>fg", fzf.live_grep, { desc = "Fzf live grep" })
 vim.keymap.set("n", "<leader>fb", fzf.builtin, { desc = "Fzf Builtin Picker" })
+
+require("oil").setup()
