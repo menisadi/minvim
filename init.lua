@@ -44,7 +44,7 @@ wk.setup({
 	preset = "helix",
 })
 wk.add({
-  { "<leader>f", group = "[f]zf" , icon = "", mode = { "n", "v" }},
+	{ "<leader>f", group = "[f]zf", icon = "", mode = { "n", "v" } },
 })
 
 require("fzf-lua").setup({ fzf_colors = true })
