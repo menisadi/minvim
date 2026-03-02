@@ -36,6 +36,7 @@ vim.pack.add({
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/tpope/vim-fugitive",
 	"https://github.com/stevearc/oil.nvim",
+	"https://github.com/nvim-treesitter/nvim-treesitter",
 })
 
 local wk = require("which-key")
@@ -53,3 +54,12 @@ vim.keymap.set("n", "<leader>fg", fzf.live_grep, { desc = "Fzf live grep" })
 vim.keymap.set("n", "<leader>fb", fzf.builtin, { desc = "Fzf Builtin Picker" })
 
 require("oil").setup()
+local ts_parsers =
+	{
+		"python", "bash", "gitcommit", "gitignore",
+		"json", "lua", "dockerfile", "markdown",
+		"sql", "toml", "yaml"
+	}
+local nts = require("nvim-treesitter")
+nts.install(ts_parsers)
+vim.lsp.enable({ "lua_ls", "basedpyright", "ruff" })
