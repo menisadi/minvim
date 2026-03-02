@@ -37,6 +37,7 @@ vim.pack.add({
 	"https://github.com/tpope/vim-fugitive",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
+	{ src = "https://github.com/saghen/blink.cmp", version = "1.*" },
 })
 
 local wk = require("which-key")
@@ -63,3 +64,4 @@ local ts_parsers =
 local nts = require("nvim-treesitter")
 nts.install(ts_parsers)
 vim.lsp.enable({ "lua_ls", "basedpyright", "ruff" })
+require('blink.cmp').setup({ fuzzy = { implementation = "lua" } })
