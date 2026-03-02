@@ -33,13 +33,11 @@ vim.pack.add({
 	"https://github.com/tpope/vim-sleuth",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/folke/which-key.nvim",
-	"https://github.com/nvim-mini/mini.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/tpope/vim-fugitive",
 	"https://github.com/stevearc/oil.nvim",
 })
 
-require("mini.icons").setup()
 local wk = require("which-key")
 wk.setup({
 	preset = "helix",
