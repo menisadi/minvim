@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.pack.add({
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	"https://github.com/tpope/vim-sleuth",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/folke/which-key.nvim",
