@@ -63,5 +63,26 @@ local ts_parsers =
 	}
 local nts = require("nvim-treesitter")
 nts.install(ts_parsers)
-vim.lsp.enable({ "lua_ls", "basedpyright", "ruff" })
-require('blink.cmp').setup({ fuzzy = { implementation = "lua" } })
+vim.lsp.config('basedpyright', {
+	cmd = { 'basedpyright-langserver', '--stdio' },
+	settings = {
+		analysis = {
+			autoSearchPaths = true,
+			diagnosticMode = "openFilesOnly",
+
+		}
+	},
+	filetypes = { 'python' },
+	root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', '.git' },
+})
+vim.lsp.config('lua_ls', {
+	cmd = { 'lua-language-server' },
+	filetypes = { 'lua' },
+	root_markers = { '.luarc.json', '.luarc.jsonc', '.git' },
+})
+vim.lsp.enable({ "lua_ls", "basedpyright" })
+require('blink.cmp').setup({
+	fuzzy = { implementation = "lua" },
+	keymap = { preset = "default" },
+	sources = { default = { "lsp", "path", "snippets", "buffer" } },
+})
