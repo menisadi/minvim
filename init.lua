@@ -66,6 +66,7 @@ vim.keymap.set("n", "<leader>lO", "<cmd>Oil<cr>", { desc = "Open Oil" })
 vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
 
 local ts_parsers = {
+	"gleam",
 	"python",
 	"bash",
 	"gitcommit",
@@ -80,6 +81,11 @@ local ts_parsers = {
 }
 local nts = require("nvim-treesitter")
 nts.install(ts_parsers)
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
 vim.lsp.config("basedpyright", {
 	cmd = { "basedpyright-langserver", "--stdio" },
 	settings = {
