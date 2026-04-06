@@ -66,7 +66,7 @@ vim.keymap.set("n", "<leader>fg", fzf.live_grep, { desc = "Fzf live grep" })
 vim.keymap.set("n", "<leader>fb", fzf.builtin, { desc = "Fzf Builtin Picker" })
 
 require("oil").setup()
-vim.keymap.set("n", "<leader>lO", "<cmd>Oil<cr>", { desc = "Open Oil" })
+vim.keymap.set("n", "<leader>O", "<cmd>Oil<cr>", { desc = "Open Oil" })
 vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
 
 local ts_parsers = {
