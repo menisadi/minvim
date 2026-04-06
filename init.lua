@@ -29,11 +29,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-vim.api.nvim_create_user_command("PackUpdate", function()
-	vim.pack.update()
-end, {})
-
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 vim.pack.add({
@@ -63,7 +59,16 @@ require("fzf-lua").setup({ fzf_colors = true })
 local fzf = require("fzf-lua")
 vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "Fzf files" })
 vim.keymap.set("n", "<leader>fg", fzf.live_grep, { desc = "Fzf live grep" })
-vim.keymap.set("n", "<leader>fb", fzf.builtin, { desc = "Fzf Builtin Picker" })
+vim.keymap.set("n", "<leader>fb", fzf.builtin, { desc = "Fzf pickers" })
+
+local gs = require("gitsigns")
+gs.setup()
+vim.keymap.set("n", "]h", function()
+	gs.nav_hunk("next")
+end, { desc = "Next git hunk" })
+vim.keymap.set("n", "[h", function()
+	gs.nav_hunk("prev")
+end, { desc = "Previous git hunk" })
 
 require("oil").setup()
 vim.keymap.set("n", "<leader>O", "<cmd>Oil<cr>", { desc = "Open Oil" })
@@ -84,8 +89,19 @@ local ts_parsers = {
 	"yaml",
 }
 local nts = require("nvim-treesitter")
-nts.install(ts_parsers)
+vim.api.nvim_create_user_command("PackUpdate", function()
+	vim.pack.update()
+	nts.update(ts_parsers)
+end, { desc = "Update plugins and Treesitter parsers" })
+
+vim.api.nvim_create_user_command("TSInstallParsers", function()
+	nts.install(ts_parsers)
+end, { desc = "Install configured Treesitter parsers" })
+
+local treesitter_group = vim.api.nvim_create_augroup("minvim-treesitter", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
+	desc = "Start Treesitter highlighting when available",
+	group = treesitter_group,
 	callback = function()
 		pcall(vim.treesitter.start)
 	end,
@@ -93,9 +109,11 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.lsp.config("basedpyright", {
 	cmd = { "basedpyright-langserver", "--stdio" },
 	settings = {
-		analysis = {
-			autoSearchPaths = true,
-			diagnosticMode = "openFilesOnly",
+		basedpyright = {
+			analysis = {
+				autoSearchPaths = true,
+				diagnosticMode = "openFilesOnly",
+			},
 		},
 	},
 	filetypes = { "python" },
@@ -121,13 +139,16 @@ require("blink.cmp").setup({
 })
 
 require("conform").setup({
-	format_on_save = true,
+	format_on_save = {
+		timeout_ms = 500,
+		lsp_format = "fallback",
+	},
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "ruff" },
 	},
 })
-vim.keymap.set("n", "<leader>lf", require("conform").format, { desc = "Format buffer" })
+vim.keymap.set("n", "<leader>lf", require("conform").format, { desc = "Format buffer with Conform" })
 
 require("flash").setup({
 	modes = {
@@ -142,7 +163,7 @@ require("flash").setup({
 	},
 })
 vim.keymap.set("n", "s", require("flash").jump, { desc = "Flash jump" })
-vim.keymap.set("n", "S", require("flash").treesitter, { desc = "Flash jump" })
+vim.keymap.set("n", "S", require("flash").treesitter, { desc = "Flash Treesitter jump" })
 
 require("aerial").setup({
 	layout = {
@@ -150,4 +171,4 @@ require("aerial").setup({
 		default_direction = "prefer_left",
 	},
 })
-vim.keymap.set("n", "<leader>la", "<cmd>AerialToggle<CR>", { desc = "Aerial Toggle" })
+vim.keymap.set("n", "<leader>la", "<cmd>AerialToggle<CR>", { desc = "Toggle Aerial" })
