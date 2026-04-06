@@ -4,7 +4,8 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.g.have_nerd_font = true
 vim.opt.mouse = "a"
--- vim.opt.showmode = false -- Turn on after we will add statusline
+vim.opt.showmode = false
+vim.opt.statusline = " %f %m%r %= %{FugitiveHead()} │ %Y │ %l:%c  %P "
 
 -- Only after entering as it might increase start time
 vim.schedule(function()
