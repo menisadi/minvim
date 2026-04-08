@@ -19,7 +19,6 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = "yes"
 vim.opt.inccommand = "split"
 vim.opt.cursorline = true
-vim.cmd([[colorscheme catppuccin]])
 
 -- Highlight when yanking text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -45,7 +44,9 @@ vim.pack.add({
 	"https://github.com/stevearc/aerial.nvim",
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/stevearc/conform.nvim",
+	"https://github.com/rebelot/kanagawa.nvim",
 })
+vim.cmd([[colorscheme kanagawa]])
 
 local wk = require("which-key")
 wk.setup({
