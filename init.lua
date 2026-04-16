@@ -108,32 +108,50 @@ vim.api.nvim_create_autocmd("FileType", {
 		pcall(vim.treesitter.start)
 	end,
 })
-vim.lsp.config("basedpyright", {
-	cmd = { "basedpyright-langserver", "--stdio" },
-	settings = {
-		basedpyright = {
-			analysis = {
-				autoSearchPaths = true,
-				diagnosticMode = "openFilesOnly",
+local capabilities = require("blink.cmp").get_lsp_capabilities()
+local servers = {
+	basedpyright = {
+		cmd = { "basedpyright-langserver", "--stdio" },
+		settings = {
+			basedpyright = {
+				analysis = {
+					autoSearchPaths = true,
+					diagnosticMode = "openFilesOnly",
+				},
+			},
+		},
+		filetypes = { "python" },
+		root_markers = { { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt" }, ".git" },
+	},
+	lua_ls = {
+		cmd = { "lua-language-server" },
+		filetypes = { "lua" },
+		root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
+		settings = {
+			Lua = {
+				workspace = {
+					library = vim.api.nvim_get_runtime_file("", true),
+				},
 			},
 		},
 	},
-	filetypes = { "python" },
-	root_markers = { { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt" }, ".git" },
-})
-vim.lsp.config("lua_ls", {
-	cmd = { "lua-language-server" },
-	filetypes = { "lua" },
-	root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
-	settings = {
-		Lua = {
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-		},
+	ruff = {},
+	rumdl = {
+		cmd = { "rumdl", "server" },
+		filetypes = { "markdown" },
+		root_markers = { ".rumdl.toml", ".git" },
 	},
-})
-vim.lsp.enable({ "lua_ls", "basedpyright" })
+	harper_ls = {
+		cmd = { "harper-ls", "--stdio" },
+		filetypes = { "markdown" },
+		root_markers = { ".git" },
+	},
+}
+for name, cfg in pairs(servers) do
+	cfg.capabilities = vim.tbl_deep_extend("force", {}, capabilities, cfg.capabilities or {})
+	vim.lsp.config(name, cfg)
+end
+vim.lsp.enable(vim.tbl_keys(servers))
 require("blink.cmp").setup({
 	fuzzy = { implementation = "lua" },
 	keymap = { preset = "default" },
