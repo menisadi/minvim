@@ -53,10 +53,9 @@ wk.setup({
 	preset = "helix",
 })
 wk.add({
-	{ "<leader>f", group = "[f]zf", icon = "", mode = { "n", "v" } },
-	{ "<leader>l", group = "[L]sp", icon = "󰒕", mode = { "n", "v" } },
-	{ "<leader>O", icon = "󰉋" },
-	{ "-", icon = "󰉋" },
+	{ "<leader>f", group = "[f]zf", icon = { icon = "", hl = "Keyword" }, mode = { "n", "v" } },
+	{ "<leader>l", group = "[L]sp", icon = { icon = "󰒕", hl = "Keyword" }, mode = { "n", "v" } },
+	{ "<leader>O", icon = { icon = "󰉋", hl = "Keyword" } },
 })
 
 require("fzf-lua").setup({ fzf_colors = true })
