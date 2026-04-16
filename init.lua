@@ -55,6 +55,8 @@ wk.setup({
 wk.add({
 	{ "<leader>f", group = "[f]zf", icon = "", mode = { "n", "v" } },
 	{ "<leader>l", group = "[L]sp", icon = "󰒕", mode = { "n", "v" } },
+	{ "<leader>O", icon = "󰉋" },
+	{ "-", icon = "󰉋" },
 })
 
 require("fzf-lua").setup({ fzf_colors = true })
