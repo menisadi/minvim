@@ -5,7 +5,6 @@ vim.opt.relativenumber = true
 vim.g.have_nerd_font = true
 vim.opt.mouse = "a"
 vim.opt.showmode = false
-vim.opt.statusline = " %f %m%r %= %{FugitiveHead()} │ %Y │ %l:%c  %P "
 
 -- Only after entering as it might increase start time
 vim.schedule(function()
@@ -40,6 +39,7 @@ vim.pack.add({
 	"https://github.com/tpope/vim-fugitive",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
+	"https://github.com/saghen/blink.lib",
 	"https://github.com/Saghen/blink.cmp",
 	"https://github.com/stevearc/aerial.nvim",
 	"https://github.com/folke/flash.nvim",
@@ -47,6 +47,7 @@ vim.pack.add({
 	"https://github.com/rebelot/kanagawa.nvim",
 })
 vim.cmd([[colorscheme kanagawa]])
+vim.opt.statusline = " %f %m%r %= %{FugitiveHead()} │ %Y │ %l:%c  %P "
 
 local wk = require("which-key")
 wk.setup({
