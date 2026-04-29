@@ -194,3 +194,12 @@ require("aerial").setup({
 	},
 })
 vim.keymap.set("n", "<leader>la", "<cmd>AerialToggle<CR>", { desc = "Toggle Aerial" })
+
+_G.aerial_breadcrumbs = function()
+	local items = require("aerial").get_location(false)
+	local parts = vim.tbl_map(function(item)
+		return item.icon .. " " .. item.name
+	end, items)
+	return #parts > 0 and " " .. table.concat(parts, " > ") or ""
+end
+vim.opt.winbar = "%{%v:lua.aerial_breadcrumbs()%}"
