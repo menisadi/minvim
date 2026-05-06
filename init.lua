@@ -167,7 +167,7 @@ require("conform").setup({
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
-		python = { "ruff" },
+		python = { "ruff_fix", "ruff_format" },
 	},
 })
 vim.keymap.set("n", "<leader>lf", require("conform").format, { desc = "Format buffer with Conform" })
