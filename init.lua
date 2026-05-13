@@ -40,6 +40,9 @@ vim.pack.add({
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/saghen/blink.lib",
 	"https://github.com/Saghen/blink.cmp",
+	"https://github.com/kylechui/nvim-surround",
+	"https://github.com/folke/lazydev.nvim",
+	"https://github.com/Bilal2453/luvit-meta",
 	"https://github.com/stevearc/aerial.nvim",
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/stevearc/conform.nvim",
@@ -76,6 +79,12 @@ end, { desc = "Previous git hunk" })
 require("oil").setup()
 vim.keymap.set("n", "<leader>O", "<cmd>Oil<cr>", { desc = "Open Oil" })
 vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
+
+require("lazydev").setup({
+	library = {
+		{ path = "luvit-meta/library", words = { "vim%.uv" } },
+	},
+})
 
 local ts_parsers = {
 	"gleam",
@@ -153,6 +162,18 @@ for name, cfg in pairs(servers) do
 	vim.lsp.config(name, cfg)
 end
 vim.lsp.enable(vim.tbl_keys(servers))
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("minvim-lsp-attach", { clear = true }),
+	callback = function(event)
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
+		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+			vim.keymap.set("n", "<leader>lh", function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+			end, { buffer = event.buf, desc = "Toggle inlay hints" })
+		end
+	end,
+})
 require("blink.cmp").setup({
 	fuzzy = { implementation = "lua" },
 	keymap = { preset = "default" },
@@ -170,6 +191,8 @@ require("conform").setup({
 	},
 })
 vim.keymap.set("n", "<leader>lf", require("conform").format, { desc = "Format buffer with Conform" })
+
+require("nvim-surround").setup()
 
 require("flash").setup({
 	modes = {
