@@ -156,6 +156,11 @@ local servers = {
 		filetypes = { "markdown" },
 		root_markers = { ".git" },
 	},
+	bashls = {
+		cmd = { "bash-language-server", "start" },
+		filetypes = { "sh", "bash", "zsh" },
+		root_markers = { ".git" },
+	},
 }
 for name, cfg in pairs(servers) do
 	cfg.capabilities = vim.tbl_deep_extend("force", {}, capabilities, cfg.capabilities or {})
