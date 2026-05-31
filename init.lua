@@ -101,10 +101,10 @@ local ts_parsers = {
 	"yaml",
 }
 local nts = require("nvim-treesitter")
-vim.api.nvim_create_user_command("PackUpdate", function()
-	vim.pack.update()
+vim.api.nvim_create_user_command("PackUpdate", function(opts)
+	vim.pack.update(nil, { force = opts.bang })
 	nts.update(ts_parsers)
-end, { desc = "Update plugins and Treesitter parsers" })
+end, { bang = true, desc = "Update plugins and Treesitter parsers (use ! to skip confirmation)" })
 
 vim.api.nvim_create_user_command("TSInstallParsers", function()
 	nts.install(ts_parsers)
