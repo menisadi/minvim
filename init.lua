@@ -49,6 +49,15 @@ vim.pack.add({
 	"https://github.com/rebelot/kanagawa.nvim",
 })
 vim.cmd([[colorscheme kanagawa]])
+
+_G.diag_status = function()
+	local c = vim.diagnostic.count(0)
+	local e = c[vim.diagnostic.severity.ERROR] or 0
+	local w = c[vim.diagnostic.severity.WARN] or 0
+	if e == 0 and w == 0 then return "" end
+	return (e > 0 and "E:" .. e .. " " or "") .. (w > 0 and "W:" .. w or "")
+end
+
 vim.opt.statusline = " %f %m%r %{%v:lua.diag_status()%} %= %{FugitiveHead()} │ %Y │ %l:%c  %P "
 
 local wk = require("which-key")
@@ -137,13 +146,6 @@ local servers = {
 		cmd = { "lua-language-server" },
 		filetypes = { "lua" },
 		root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
-		settings = {
-			Lua = {
-				workspace = {
-					library = vim.api.nvim_get_runtime_file("", true),
-				},
-			},
-		},
 	},
 	ruff = {},
 	rumdl = {
@@ -230,11 +232,3 @@ _G.aerial_breadcrumbs = function()
 	return #parts > 0 and " " .. table.concat(parts, " > ") or ""
 end
 vim.opt.winbar = "%{%v:lua.aerial_breadcrumbs()%}"
-
-_G.diag_status = function()
-	local c = vim.diagnostic.count(0)
-	local e = c[vim.diagnostic.severity.ERROR] or 0
-	local w = c[vim.diagnostic.severity.WARN] or 0
-	if e == 0 and w == 0 then return "" end
-	return (e > 0 and "E:" .. e .. " " or "") .. (w > 0 and "W:" .. w or "")
-end
