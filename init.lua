@@ -47,6 +47,7 @@ vim.pack.add({
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/rebelot/kanagawa.nvim",
+	"https://github.com/zk-org/zk-nvim",
 })
 vim.cmd([[colorscheme kanagawa]])
 
@@ -232,3 +233,15 @@ _G.aerial_breadcrumbs = function()
 	return #parts > 0 and " " .. table.concat(parts, " > ") or ""
 end
 vim.opt.winbar = "%{%v:lua.aerial_breadcrumbs()%}"
+
+require("zk").setup({
+	picker = "fzf_lua",
+	lsp = {
+		config = {
+			cmd = { "zk", "lsp" },
+			name = "zk",
+			filetypes = { "markdown" },
+		},
+		auto_attach = { enabled = true },
+	},
+})
