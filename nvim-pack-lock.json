@@ -5,11 +5,11 @@
       "src": "https://github.com/stevearc/aerial.nvim"
     },
     "blink.cmp": {
-      "rev": "13e7b50e7ba73ce781459da68d346925adfdb530",
+      "rev": "bda905a4bf1b3edfa708b0be193b8c63d8620c96",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "blink.lib": {
-      "rev": "b127d48bf8e9ac9cf41f6e0fbead317503f76558",
+      "rev": "5876dd95deeb70aadbe9f1c0b7117a135061cdac",
       "src": "https://github.com/saghen/blink.lib"
     },
     "conform.nvim": {
@@ -21,11 +21,11 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "988416cc782dfe28bff3f0da9b8c943b236cd86a",
+      "rev": "b9919229c84bd64d8539367e67e32811cf39a836",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
+      "rev": "2038c666bd9d8a0b7349a0b6ee00dc83104b9ecf",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "kanagawa.nvim": {
