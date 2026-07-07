@@ -164,6 +164,11 @@ local servers = {
 		filetypes = { "sh", "bash", "zsh" },
 		root_markers = { ".git" },
 	},
+	gleam = {
+		cmd = { "gleam", "lsp" },
+		filetypes = { "gleam" },
+		root_markers = { "gleam.toml" },
+	},
 }
 for name, cfg in pairs(servers) do
 	cfg.capabilities = vim.tbl_deep_extend("force", {}, capabilities, cfg.capabilities or {})
@@ -197,6 +202,7 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "ruff_fix", "ruff_format" },
+		gleam = { "gleam" },
 	},
 })
 vim.keymap.set("n", "<leader>lf", require("conform").format, { desc = "Format buffer with Conform" })
