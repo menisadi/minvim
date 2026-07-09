@@ -238,10 +238,23 @@ vim.keymap.set("n", "<leader>la", "<cmd>AerialToggle<CR>", { desc = "Toggle Aeri
 
 _G.aerial_breadcrumbs = function()
 	local items = require("aerial").get_location(false)
+	local hebrew = vim.b.hebrew_mode_enabled
+	if hebrew then
+		local reversed = {}
+		for i = #items, 1, -1 do
+			reversed[#reversed + 1] = items[i]
+		end
+		items = reversed
+	end
 	local parts = vim.tbl_map(function(item)
-		return item.icon .. " " .. item.name
+		local name = hebrew and table.concat(vim.fn.reverse(vim.fn.split(item.name, "\\zs"))) or item.name
+		return item.icon .. " " .. name
 	end, items)
-	return #parts > 0 and " " .. table.concat(parts, " > ") or ""
+	if #parts == 0 then
+		return ""
+	end
+	local text = " " .. table.concat(parts, " · ") .. " "
+	return hebrew and ("%=" .. text) or text
 end
 vim.opt.winbar = "%{%v:lua.aerial_breadcrumbs()%}"
 
