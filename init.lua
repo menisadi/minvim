@@ -51,6 +51,10 @@ vim.pack.add({
 })
 vim.cmd([[colorscheme kanagawa]])
 
+_G.hebrew_status = function()
+	return vim.b.hebrew_mode_enabled and "HEB" or ""
+end
+
 _G.diag_status = function()
 	local c = vim.diagnostic.count(0)
 	local e = c[vim.diagnostic.severity.ERROR] or 0
@@ -59,7 +63,7 @@ _G.diag_status = function()
 	return (e > 0 and "E:" .. e .. " " or "") .. (w > 0 and "W:" .. w or "")
 end
 
-vim.opt.statusline = " %f %m%r %{%v:lua.diag_status()%} %= %{FugitiveHead()} │ %Y │ %l:%c  %P "
+vim.opt.statusline = " %f %m%r %{%v:lua.diag_status()%} %= %{%v:lua.hebrew_status()%}%{v:lua.hebrew_status()!=''?'  │ ':''} %{FugitiveHead()} │ %Y │ %l:%c  %P "
 
 local wk = require("which-key")
 wk.setup({
@@ -252,3 +256,55 @@ require("zk").setup({
 		auto_attach = { enabled = true },
 	},
 })
+
+local guicursor_ltr = table.concat({
+	"n-v-c:block",
+	"i-ci-ve:ver25",
+	"r-cr:hor20",
+	"o:hor50",
+}, ",")
+
+local guicursor_rtl = table.concat({
+	"n-v-c:block",
+	"i-ci-ve:hor20",
+	"r-cr:hor20",
+	"o:hor50",
+}, ",")
+
+vim.o.guicursor = guicursor_ltr
+
+local function enable_hebrew_spell()
+	vim.opt_local.spelllang = { "he", "en_us" }
+	vim.opt_local.spellcapcheck = ""
+	vim.opt_local.spellsuggest = "best,9"
+end
+
+local function enable_english_spell()
+	vim.opt_local.spelllang = { "en_us" }
+	vim.opt_local.spellcapcheck = vim.api.nvim_get_option_value("spellcapcheck", { scope = "global" })
+	vim.opt_local.spellsuggest = "best,9"
+end
+
+local function ToggleHebrewMode()
+	if not vim.b.hebrew_mode_enabled then
+		vim.opt_local.keymap = "hebrew"
+		vim.opt_local.iminsert = 1
+		vim.opt_local.imsearch = 1
+		vim.opt_local.rightleft = true
+		vim.b.hebrew_mode_enabled = true
+		vim.o.guicursor = guicursor_rtl
+		enable_hebrew_spell()
+		vim.notify("Hebrew mode: ON", vim.log.levels.INFO)
+	else
+		vim.opt_local.keymap = ""
+		vim.opt_local.iminsert = 0
+		vim.opt_local.imsearch = 0
+		vim.opt_local.rightleft = false
+		vim.b.hebrew_mode_enabled = false
+		vim.o.guicursor = guicursor_ltr
+		enable_english_spell()
+		vim.notify("Hebrew mode: OFF", vim.log.levels.INFO)
+	end
+end
+
+vim.api.nvim_create_user_command("HebrewToggle", ToggleHebrewMode, {})
