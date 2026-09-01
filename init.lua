@@ -321,3 +321,5 @@ local function ToggleHebrewMode()
 end
 
 vim.api.nvim_create_user_command("HebrewToggle", ToggleHebrewMode, {})
+
+require("metime")
