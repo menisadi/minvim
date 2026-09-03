@@ -31,6 +31,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highl
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 vim.pack.add({
+	"https://github.com/menisadi/numrow.nvim",
 	"https://github.com/tpope/vim-sleuth",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/folke/which-key.nvim",
@@ -59,11 +60,14 @@ _G.diag_status = function()
 	local c = vim.diagnostic.count(0)
 	local e = c[vim.diagnostic.severity.ERROR] or 0
 	local w = c[vim.diagnostic.severity.WARN] or 0
-	if e == 0 and w == 0 then return "" end
+	if e == 0 and w == 0 then
+		return ""
+	end
 	return (e > 0 and "E:" .. e .. " " or "") .. (w > 0 and "W:" .. w or "")
 end
 
-vim.opt.statusline = " %f %m%r %{%v:lua.diag_status()%} %= %{%v:lua.hebrew_status()%}%{v:lua.hebrew_status()!=''?'  │ ':''} %{FugitiveHead()} │ %Y │ %l:%c  %P "
+vim.opt.statusline =
+	" %f %m%r %{%v:lua.diag_status()%} %= %{%v:lua.hebrew_status()%}%{v:lua.hebrew_status()!=''?'  │ ':''} %{FugitiveHead()} │ %Y │ %l:%c  %P "
 
 local wk = require("which-key")
 wk.setup({
