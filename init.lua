@@ -49,6 +49,36 @@ vim.pack.add({
 	"https://github.com/rebelot/kanagawa.nvim",
 	"https://github.com/zk-org/zk-nvim",
 })
+require("kanagawa").setup({
+	colors = {
+		palette = {
+			lotusInk1 = "#3b5159",
+			lotusWhite0 = "#b7bfb0",
+			lotusWhite1 = "#f1dcb7",
+			lotusWhite2 = "#f2ecd1",
+			lotusWhite3 = "#fcf8ed",
+			lotusWhite4 = "#d5ded4",
+			lotusWhite5 = "#d5ceb4",
+			lotusGray3 = "#9b9b8c",
+			lotusGreen = "#798c84",
+			lotusAqua = "#677c81",
+			lotusBlue4 = "#3a6a85",
+			lotusBlue5 = "#275071",
+			lotusViolet4 = "#1a3959",
+			lotusRed = "#c77f6d",
+			lotusOrange = "#bc7362",
+			lotusPink = "#c99079",
+			lotusYellow = "#b49581",
+			lotusYellow2 = "#a67463",
+			lotusTeal1 = "#4c7988",
+			lotusTeal2 = "#497d96",
+			lotusRed3 = "#55463e",
+			lotusOrange2 = "#7c645a",
+			lotusTeal3 = "#4d636a",
+			lotusAqua2 = "#88a5aa",
+		},
+	},
+})
 vim.cmd([[colorscheme kanagawa]])
 
 _G.hebrew_status = function()
