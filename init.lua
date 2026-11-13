@@ -50,6 +50,7 @@ vim.pack.add({
 	"https://github.com/rebelot/kanagawa.nvim",
 	"https://github.com/zk-org/zk-nvim",
 	"https://github.com/menisadi/kanagawa-fuji.nvim",
+	"https://github.com/MeanderingProgrammer/render-markdown.nvim",
 })
 
 require("kanagawa-fuji").setup()
