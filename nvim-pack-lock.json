@@ -5,7 +5,7 @@
       "src": "https://github.com/stevearc/aerial.nvim"
     },
     "blink.cmp": {
-      "rev": "7b31e1b6497be70f620bbad83a789929248697ac",
+      "rev": "3d3631f641e6e9b60066f269f435d23c524ceeb0",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "blink.lib": {
@@ -25,11 +25,11 @@
       "src": "https://github.com/kepano/flexoki-neovim"
     },
     "fzf-lua": {
-      "rev": "ded1c96d3d9d74634287d722431c26690968a4bf",
+      "rev": "a3b5e6bebcc604d0286fffa1c4eb05b066a2a198",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "ef707fb93301a9b856f36eae4c8f56f5b988a794",
+      "rev": "b15de90f4b71ff684372a7e16cfd00bc2d917a94",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "kanagawa-fuji.nvim": {
@@ -57,7 +57,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "19bdfc04f40ed2ccb3340591d125f759b0406875",
+      "rev": "52773f0d13a0c11d0c3ef33c14ab6ecc1c17148b",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "oil.nvim": {
@@ -65,7 +65,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "9c235bedc4f96145e63fcad5b78cd78bce8822c4",
+      "rev": "a67f826164c38c836fc6060f32b275c4c43317a7",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "vim-fugitive": {
@@ -81,7 +81,7 @@
       "src": "https://github.com/folke/which-key.nvim"
     },
     "zk-nvim": {
-      "rev": "2093138f4fabce994cf19403fca89d629f312ac9",
+      "rev": "054a121d262a11f2e76a3966e14815141f0b6174",
       "src": "https://github.com/zk-org/zk-nvim"
     }
   }
